@@ -29,7 +29,7 @@ The architecture is designed keeping **High Availability**, **Fault Tolerance**,
 ## 📁 Folder Architecture
 
 This project follows an enterprise-level **Modular Feature-Driven / Layered Architecture** to keep the codebase maintainable as the system grows.
-
+```
 
 src/
 │
@@ -72,7 +72,7 @@ src/
 └── server.ts               # Server bootstrap, port listening, error shutdown handling
 
 
-
+```
 🚀 Getting Started
 Prerequisites
 Make sure you have the following installed:
