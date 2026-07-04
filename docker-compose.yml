@@ -4,9 +4,9 @@ services:
     container_name: docker_local_postgres
 
     environment:
-      POSTGRES_USER: mohit
-      POSTGRES_PASSWORD: mohit@123
-      POSTGRES_DB: backend_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
 
     ports:
       - "5433:5432"
