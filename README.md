@@ -31,45 +31,60 @@ The architecture is designed keeping **High Availability**, **Fault Tolerance**,
 This project follows an enterprise-level **Modular Feature-Driven / Layered Architecture** to keep the codebase maintainable as the system grows.
 ```
 
-src/
+Backend_system/
 │
-├── @types/                 # Global TypeScript type definitions & interfaces
-├── config/                 # Environment variables, database configs, and constants
-│   ├── database.ts
-│   └── logger.ts
+├── src/                               # Main application source code
+│   │
+│   ├── config/                        # Configuration files
+│   │   ├── env.ts                     # Environment variable loader & validation
+│   │   └── prisma.ts                  # Prisma client initialization
+│   │
+│   ├── constants/                     # Global constants & enums
+│   │   └── httpStatus.ts              # HTTP status codes
+│   │
+│   ├── controllers/                   # Handles HTTP requests & responses
+│   │   └── auth.controller.ts         # Authentication controller
+│   │
+│   ├── middlewares/                   # Express middlewares
+│   │   ├── auth.middleware.ts         # JWT authentication middleware
+│   │   ├── logger.middleware.ts       # Request logging middleware
+│   │   └── validation.middleware.ts   # Request body validation
+│   │
+│   ├── routes/                        # API route definitions
+│   │   └── auth.routes.ts             # Authentication routes
+│   │
+│   ├── services/                      # Business logic layer
+│   │   └── auth.service.ts            # Authentication business logic
+│   │
+│   ├── utils/                         # Reusable helper functions
+│   │   ├── jwt.ts                     # JWT generation & verification
+│   │   ├── logger.ts                  # Winston/Pino logger configuration
+│   │   └── password.ts                # Password hashing & comparison
+│   │
+│   ├── validators/                    # Zod/Joi validation schemas
+│   │   └── auth.validator.ts          # Authentication validation schemas
+│   │
+│   ├── interfaces/                    # Shared TypeScript interfaces & types
+│   │
+│   ├── app.ts                         # Express app configuration
+│   └── server.ts                      # Application entry point
 │
-├── constants/              # System-wide enums and immutable values
+├── prisma/                            # Prisma ORM files
+│   ├── schema.prisma                  # Database schema
+│   ├── seed.ts                        # Database seeding script
+│   └── migrations/                    # Prisma migration history
 │
-├── controllers/            # Request handlers (Parses request, sends response)
-│   ├── auth.controller.ts
-│   └── dashboard.controller.ts
+├── tests/                             # Unit & integration tests
 │
-├── dtos/                   # Data Transfer Objects (Validation schemas using Zod/Joi)
-│   └── dashboard.dto.ts
+├── logs/                              # Application log files
 │
-├── errors/                 # Custom error classes (AppError, BadRequestError)
-│
-├── middlewares/            # Custom express middlewares
-│   ├── auth.middleware.ts
-│   ├── error.middleware.ts
-│   └── rateLimiter.middleware.ts
-│
-├── models/                 # Database Schemas / ORM Models (Prisma/Sequelize/Mongoose)
-│
-├── repositories/           # Data Access Layer (Direct DB queries go here)
-│   └── dashboard.repository.ts
-│
-├── routes/                 # API Routing definitions
-│   ├── index.ts
-│   └── dashboard.routes.ts
-│
-├── services/               # Core Business Logic Layer (Calculations, integrations)
-│   └── dashboard.service.ts
-│
-├── utils/                  # Utility/Helper functions (helpers, formatters)
-│
-├── app.ts                  # App initialization, middleware binding
-└── server.ts               # Server bootstrap, port listening, error shutdown handling
+├── .env                               # Environment variables
+├── .gitignore                         # Git ignored files
+├── docker-compose.yml                 # Docker services configuration
+├── package.json                       # Project metadata & scripts
+├── prisma.config.ts                   # Prisma configuration
+└── tsconfig.json                      # TypeScript compiler configuration
+
 
 
 ```
