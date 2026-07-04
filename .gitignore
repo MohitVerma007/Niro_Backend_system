@@ -1,0 +1,25 @@
+# Environment variables
+.env
+
+
+# Dependencies
+node_modules/
+package-lock.json
+
+
+# Build outputs
+dist/
+build/
+
+
+# Logs
+logs/
+learnings/
+*.log
+
+# Prisma
+.prisma/
+
+# Temporary files
+tmp/
+temp/

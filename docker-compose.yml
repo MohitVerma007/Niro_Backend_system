@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: docker_local_postgres
+
+    environment:
+      POSTGRES_USER: mohit
+      POSTGRES_PASSWORD: mohit@123
+      POSTGRES_DB: backend_db
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - backend_system_postgres_data:/var/lib/postgresql # <-- Change this line
+
+volumes:
+  backend_system_postgres_data:
