@@ -1,4 +1,13 @@
 services:
+  redis:
+    image: redis:8
+    container_name: docker_local_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - backend_system_redis_data:/data
+    
+
   postgres:
     image: postgres:18-alpine
     container_name: docker_local_postgres
@@ -16,3 +25,4 @@ services:
 
 volumes:
   backend_system_postgres_data:
+  backend_system_redis_data: # <-- we can add a volume for redis data persistence if needed

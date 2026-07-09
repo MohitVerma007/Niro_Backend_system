@@ -3,9 +3,12 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import authRoutes from "./routes/auth.routes.js";
+import postRoutes from "./routes/post.routes.js";
 import { HTTP_STATUS } from "./constants/httpStatus.js";
 import { logger } from "./utils/logger.js";
 import { loggerMiddleware } from "./middlewares/logger.middleware.js";
+
+import { redisClient } from "./config/redis.js";
 
 const app = express();
 
@@ -48,6 +51,8 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/api/auth", authRoutes);
 
 
+app.use("/api/post", postRoutes);
+
 // ==========================================
 // 4. 404 NOT FOUND HANDLER
 // ==========================================
@@ -65,7 +70,7 @@ app.use((req: Request, res: Response) => {
 // ==========================================
 // Pure application me kahin bhi catch block se error yahan pass kiya ja sakta hai next(error) karke
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  logger.error("❌ GLOBAL ERROR LOG:", err.message || err);
+  logger.error({ message: "❌ GLOBAL ERROR LOG", error: err.message || err });
 
   const statusCode = err.statusCode || HTTP_STATUS.INTERNAL_SERVER_ERROR;
   const message = err.message || "Something went wrong on the server";
@@ -77,5 +82,19 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
 });
+
+
+
+
+async function testRedis() {
+    try {
+        // await redisClient.connect();
+        logger.info("✅ Redis connected successfully!");  
+    } catch (error) {
+        logger.error({ message: "❌ Redis connection failed", error });
+    }
+}
+
+testRedis();
 
 export default app;

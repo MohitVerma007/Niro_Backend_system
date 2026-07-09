@@ -17,7 +17,7 @@ export async function register(req: Request, res: Response) {
 
         res.status(HTTP_STATUS.CREATED).json({ user:{ id: newUser.id, name: newUser.name, email: newUser.email }, token });
     } catch (error) {
-        logger.error("❌ ERROR IN REGISTER:", error);
+        logger.error({ message: "❌ ERROR IN REGISTER:", error });
         res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Something went wrong' });
     }
 
@@ -39,7 +39,18 @@ export async function login(req: Request, res: Response) {
 
         res.status(HTTP_STATUS.OK).json({ user: { id: user.id, name: user.name, email: user.email }, token });
     } catch (error) {
-        logger.error("❌ ERROR IN LOGIN:", error);
+        logger.error({ message: "❌ ERROR IN LOGIN:", error });
         res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Something went wrong' });
     }
+}
+
+
+export async function getAllUsers(req: Request, res: Response) {
+    try {
+        const users = await Authservice.getAllUsers();
+        res.status(HTTP_STATUS.OK).json({ users });
+    } catch (error) {
+        logger.error({ message: "❌ ERROR IN GET ALL USERS:", error });
+        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: 'Something went wrong' });
+    } 
 }

@@ -9,6 +9,10 @@ export async function findUserByEmail(email: string) {
     });
 }
 
+export async function getAllUsers() {
+    return await prisma.user.findMany();
+}
+
 export async function createUser(data: any) {
     const hashedPassword = await hashPassword(data.password);
     return await prisma.user.create({

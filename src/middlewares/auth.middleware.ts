@@ -22,7 +22,7 @@ export function authenticateToken(req: AuthenticatedRequest, res: Response, next
         req.userId = decoded.userId;  // Attach the user ID to the request object for use in subsequent middleware or route handlers
         next();
     } catch (error) {
-        logger.error("❌ ERROR IN AUTHENTICATION:", error);
+        logger.error({ message: "❌ ERROR IN AUTHENTICATION:", error });
         return res.status(HTTP_STATUS.UNAUTHORIZED).json({ message: 'Invalid or expired token' });
     }
 
