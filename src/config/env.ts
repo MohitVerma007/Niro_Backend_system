@@ -5,4 +5,7 @@ export const env = {
     PORT: process.env.PORT || 5000,
     DATABASE_URL: process.env.DATABASE_URL!,
     JWT_SECRET: process.env.JWT_SECRET!, // use in any file by using import { env } from "../config/env" and then use env.JWT_SECRET
+    REDIS_HOST: process.env.REDIS_HOST || "localhost",
+    REDIS_PORT: Number(process.env.REDIS_PORT || 6379),
+    REDIS_CACHE_TTL_SECONDS: Number(process.env.REDIS_CACHE_TTL_SECONDS || 60),
 };

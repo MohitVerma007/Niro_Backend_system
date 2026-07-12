@@ -1,11 +1,11 @@
 import {type Request, type Response} from 'express';
-import * as PostService from '../services/post.service.js';
+import { postService }  from '../services/post.service.js';
 import {HTTP_STATUS} from '../constants/httpStatus.js';
 import {logger} from '../utils/logger.js';
 
 export async function createPost(req: Request, res: Response){
     try {
-        const newPost = await PostService.createPost(req.body);
+        const newPost = await postService.createNewPost(req.body);
         res.status(HTTP_STATUS.CREATED).json({ post: newPost});
 
     } catch (error) {
@@ -16,7 +16,7 @@ export async function createPost(req: Request, res: Response){
 
 export async function getAllPost(req: Request, res: Response){
     try {
-        const posts = await PostService.getAllPosts();
+        const posts = await postService.getAllPosts();
         res.status(HTTP_STATUS.OK).json({ posts: posts});
     } catch (error) {
         logger.error({ message: "❌ ERROR IN GET ALL POST:", error });
