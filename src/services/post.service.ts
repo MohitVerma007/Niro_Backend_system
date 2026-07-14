@@ -1,6 +1,7 @@
 
 // src/services/post.service.ts
 import { postRepository } from '../repositories/post.repository.js';
+import { postProducer } from '../kafka/post.producer.js';
 import { cacheService } from '../cache/cache.service.js';
 import { CACHE_KEYS } from '../cache/cache.keys.js';
 import { type IPost, type IPostWithUser } from '../interfaces/post.interface.js';
@@ -37,6 +38,8 @@ export const postService = {
   async createNewPost(data: CreatePostInput): Promise<IPost> {
     // 1. Database me post create karo
     const newPost = await postRepository.create(data);
+
+    await postProducer.emitPostCreated(newPost);
 
     // 2. Cache Invalidation (Purana data delete karo taaki agli baar fresh data aaye)
     await cacheService.del(CACHE_KEYS.ALL_POSTS);

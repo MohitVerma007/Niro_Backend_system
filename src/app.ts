@@ -7,8 +7,11 @@ import postRoutes from "./routes/post.routes.js";
 import { HTTP_STATUS } from "./constants/httpStatus.js";
 import { logger } from "./utils/logger.js";
 import { loggerMiddleware } from "./middlewares/logger.middleware.js";
+import { Kafka } from "kafkajs";
+import { runPostConsumer } from "./kafka/post.consumer.js";
 
 import { redisClient } from "./config/redis.js";
+import { connectKafka } from "./config/kafka.js";
 
 const app = express();
 
@@ -83,18 +86,13 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+await connectKafka();
+
+await runPostConsumer();
 
 
 
-async function testRedis() {
-    try {
-        // await redisClient.connect();
-        logger.info("✅ Redis connected successfully!");  
-    } catch (error) {
-        logger.error({ message: "❌ Redis connection failed", error });
-    }
-}
 
-testRedis();
+
 
 export default app;
