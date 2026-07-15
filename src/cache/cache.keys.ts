@@ -6,6 +6,11 @@ export const CACHE_KEYS = { // cache keys for redis are variable names that are 
   POST_BY_ID: (id: string | number) => `post:${id}`,
   POSTS_BY_TAG: (tag: string) => `posts:tag:${tag}`,
 
+  // --- Product Keys ---
+  ALL_PRODUCTS: 'products:all',
+  PRODUCT_BY_ID: (id: string | number) => `product:${id}`,
+  PRODUCT_BY_NAME: (name: string) => `products:name${name}`,
+
   // --- User Keys ---
   USER_PROFILE: (id: string | number) => `user:profile:${id}`,
   USER_WITH_POSTS: (id: string | number) => `user:posts:${id}`,

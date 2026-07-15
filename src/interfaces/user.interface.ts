@@ -1,5 +1,6 @@
 // src/interfaces/user.interface.ts
 import { type IPost } from './post.interface.js'; // here we used type-only import to avoid circular dependency issues
+import { type IProduct } from './product.interface.js';
 
 export interface IUser {
   id: number;
@@ -11,4 +12,8 @@ export interface IUser {
 // Jab User ke sath uske saare posts bhi load karne hon
 export interface IUserWithPosts extends IUser {
   posts: IPost[];
+}
+
+export interface IUserWithProducts extends IUser {
+  products: IProduct[];
 }

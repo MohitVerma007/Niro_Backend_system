@@ -12,6 +12,7 @@ model User {
   email String @unique
   password String
   posts Post[]
+  products Product[]
 }
 
 model Post {
@@ -21,4 +22,13 @@ model Post {
   userId  Int
   tags    String
   user    User   @relation(fields: [userId], references: [id])
+}
+
+model Product {
+  id       Int    @id @default(autoincrement())
+  name     String
+  desc     String
+  quantity Int
+  created_by Int
+  user   User @relation(fields: [created_by], references: [id])
 }
