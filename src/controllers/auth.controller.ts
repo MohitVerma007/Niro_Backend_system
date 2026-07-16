@@ -1,5 +1,5 @@
-import { type Request, type Response } from 'express';  // here type is used to import only the types from the express module, which helps in reducing the bundle size and improving performance.
-import * as Authservice from '../services/auth.service.js' //astrik use for importing all the functions from the auth.service module
+import { type Request, type Response } from 'express';  
+import * as Authservice from '../services/auth.service.js' 
 import { generateToken } from '../utils/jwt.js';
 import { comparePassword } from '../utils/password.js';
 import { HTTP_STATUS } from '../constants/httpStatus.js';
@@ -13,7 +13,7 @@ export async function register(req: Request, res: Response) {
         }
 
         const newUser = await Authservice.createUser(req.body);
-        const token = generateToken({ userId: newUser.id }); // error here, userId is not defined in the newUser object, it should be newUser.id instead of newUser.userId
+        const token = generateToken({ userId: newUser.id }); 
 
         res.status(HTTP_STATUS.CREATED).json({ user:{ id: newUser.id, name: newUser.name, email: newUser.email }, token });
     } catch (error) {

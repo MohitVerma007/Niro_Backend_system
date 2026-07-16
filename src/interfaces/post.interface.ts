@@ -6,10 +6,9 @@ export interface IPost {
   title: string;
   content: string;
   userId: number;
-  tags: string; // Prisma me String hai, to comma-separated string store hogi
+  tags: string;
 }
 
-// Jab Post ke sath uske Author (User) ki details bhi chahiye hon
 export interface IPostWithUser extends IPost {
-  user: Omit<IUser, 'password'>; // Security ke liye user ka password include nahi karenge
+  user: Omit<IUser, 'password'>; 
 }

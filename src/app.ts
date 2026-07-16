@@ -19,19 +19,14 @@ const app = express();
 // 1. GLOBAL MIDDLEWARES
 // ==========================================
 
-// Security headers lagane ke liye
 app.use(helmet());
 
-// Cross-Origin requests allow karne ke liye (Frontend integration ke waqt kaam aayega)
 app.use(cors());
 
-// HTTP requests ko terminal me log karne ke liye (Development me useful hai)
 app.use(morgan("dev"));
 
-// Incoming Requests ke JSON body ko parse karne ke liye
 app.use(express.json());
 
-// API requests ko logger mein save karne ke liye
 app.use(loggerMiddleware);
 
 
@@ -50,7 +45,6 @@ app.get("/health", (req: Request, res: Response) => {
 // ==========================================
 // 3. API ROUTES MOUNTING
 // ==========================================
-// Aapke auth endpoints ab yahan se handle honge: /api/auth/register aur /api/auth/login
 app.use("/api/auth", authRoutes);
 
 
@@ -59,7 +53,6 @@ app.use("/api/post", postRoutes);
 // ==========================================
 // 4. 404 NOT FOUND HANDLER
 // ==========================================
-// Agar koi aisa route hit kare jo exist nahi karta
 app.use((req: Request, res: Response) => {
   res.status(HTTP_STATUS.NOT_FOUND).json({
     success: false,
@@ -71,7 +64,6 @@ app.use((req: Request, res: Response) => {
 // ==========================================
 // 5. GLOBAL ERROR HANDLING MIDDLEWARE
 // ==========================================
-// Pure application me kahin bhi catch block se error yahan pass kiya ja sakta hai next(error) karke
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   logger.error({ message: "❌ GLOBAL ERROR LOG", error: err.message || err });
 
@@ -81,7 +73,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(statusCode).json({
     success: false,
     message,
-    // Development mode me stack trace dikhayenge taaki debugging aasan ho
     stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
 });

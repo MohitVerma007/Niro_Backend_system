@@ -4,9 +4,7 @@ import { env } from "./config/env.js";
 import { logger } from "./utils/logger.js";
 
 
-/**
- * Server ko start karne ke liye function
- */
+
 
 
 function startServer() {
@@ -23,9 +21,8 @@ function startServer() {
     
   } catch (error) {
     logger.error({ message: "❌ ERROR IN SERVER STARTUP:", error });
-    process.exit(1); // Agar server start na ho paye, to process ko close kar do
+    process.exit(1); 
   }
 }
 
-// Server ko fire (execute) karna
 startServer();

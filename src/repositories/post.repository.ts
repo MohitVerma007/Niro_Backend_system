@@ -15,7 +15,6 @@ export const postRepository = {
     if (filters) {
       const conditions: any[] = [];
 
-      // Agar tag bhej rahe hain
       if (filters.tag) {
         conditions.push({
           tags: {
@@ -24,7 +23,6 @@ export const postRepository = {
         });
       }
 
-      // Agar search title text bhej rahe hain
       if (filters.search) {
         conditions.push({
           title: {
@@ -34,7 +32,6 @@ export const postRepository = {
         });
       }
 
-      // Agar conditions array me kuch add hua hai, tabhi AND apply karein
       if (conditions.length > 0) {
         whereClause.AND = conditions;
       }

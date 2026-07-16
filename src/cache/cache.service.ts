@@ -1,5 +1,4 @@
 // src/cache/cache.service.ts
-// Note: Yahan aap ioredis ya redis client use kar sakte hain jo aapke config me setup ho
 import { redisClient } from '../config/redis.js'; 
 
 export const cacheService = {

@@ -12,7 +12,6 @@ export const postService = {
    * Get all posts with Caching Strategy
    */
   async getAllPosts(filters?: PostFilters): Promise<IPostWithUser[]> {
-    // Agar koi specific tag search kar raha hai toh alag key banegi, nahi toh default key
     const cacheKey = filters?.tag 
       ? CACHE_KEYS.POSTS_BY_TAG(filters.tag) 
       : CACHE_KEYS.ALL_POSTS;
@@ -44,7 +43,6 @@ export const postService = {
     // 2. Cache Invalidation (Purana data delete karo taaki agli baar fresh data aaye)
     await cacheService.del(CACHE_KEYS.ALL_POSTS);
     if (data.tags) {
-      // Agar tags hain, toh tag-specific caches ko bhi clear kar sakte hain
       const individualTags = data.tags.split(',');
       for (const tag of individualTags) {
         await cacheService.del(CACHE_KEYS.POSTS_BY_TAG(tag.trim()));
